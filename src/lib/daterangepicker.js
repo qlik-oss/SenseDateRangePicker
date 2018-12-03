@@ -16,7 +16,7 @@
 
     if (typeof define === 'function' && define.amd ) {  
       define(['./moment.min', 'jquery', 'exports'], function(momentjs, $, exports) {   
-        root.daterangepicker = factory(root, exports, momentjs, $);
+        root.qlikdaterangepicker = factory(root, exports, momentjs, $);
       });
   
     } else if (typeof exports !== 'undefined') {
@@ -35,10 +35,10 @@
   
     // Finally, as a browser global.
     } else { 
-      root.daterangepicker = factory(root, {}, root.moment || moment, (root.jQuery || root.Zepto || root.ender || root.$));
+      root.qlikdaterangepicker = factory(root, {}, root.moment || moment, (root.jQuery || root.Zepto || root.ender || root.$));
     }
   
-  }(this || {}, function(root, daterangepicker, moment, $) { // 'this' doesn't exist on a server
+  }(this || {}, function(root, qlikdaterangepicker, moment, $) { // 'this' doesn't exist on a server
   
       var DateRangePicker = function(element, options, cb) {
   
@@ -104,7 +104,7 @@
   
           //html template for the picker UI
           if (typeof options.template !== 'string')
-              options.template = '<div id= "dropDown_' + options.id + '" div class="daterangepicker dropdown-menu" style="display:none">' +
+              options.template = '<div id= "dropDown_' + options.id + '" div class="daterangepicker qlik-daterangepicker dropdown-menu" style="display:none">' +
                   '<div class="calendar dpleft">' +
                       '<div class="daterangepicker_input">' +
                         '<input class="input-mini" type="text" name="daterangepicker_start" value="" />' +
@@ -1492,7 +1492,7 @@
   
       };
   
-      $.fn.daterangepicker = function(options, callback) {
+      $.fn.qlikdaterangepicker = function(options, callback) {
           this.each(function() {
               var el = $(this);
               if (el.data('daterangepicker'))
