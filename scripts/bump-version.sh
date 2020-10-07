@@ -14,7 +14,7 @@ if [ "${CIRCLE_BRANCH}" == "qlik-date-picker" ]; then
   IFS='.' read -ra ARRAY_VERSION <<< "$OLD_VERSION"
 
   # bump minor
-  ARRAY_VERSION[1]=$((ARRAY_VERSION[1]+1))
+  ARRAY_VERSION[2]=$((ARRAY_VERSION[2]+1))
 
   # join into string
   NEW_VERSION=$(join_by . ${ARRAY_VERSION[@]})
