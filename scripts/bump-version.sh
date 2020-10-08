@@ -15,7 +15,7 @@ if [ "${CIRCLE_BRANCH}" == "release/2.15.x" ]; then
 
   # bump minor
   ARRAY_VERSION[2]=$((ARRAY_VERSION[2]+1))
-
+  ARRAY_VERSION[1]=15
   # join into string
   NEW_VERSION=$(join_by . ${ARRAY_VERSION[@]})
 elif [[ ! -z "${CIRCLE_BRANCH}" && ! -z "${CIRCLE_BUILD_NUM}" ]]; then
