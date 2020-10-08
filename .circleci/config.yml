@@ -108,4 +108,4 @@ workflows:
             branches:
               only:
                 - qlik-date-picker
-                - release/*
+                - release/2.15.x
