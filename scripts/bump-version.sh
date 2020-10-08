@@ -4,7 +4,7 @@ set -o errexit
 join_by () {
   local IFS="$1"; shift; echo "$*";
 }
-
+echo "${CIRCLE_BRANCH}"
 if [["${CIRCLE_BRANCH}" == "qlik-date-picker" || "${CIRCLE_BRANCH}" == "release/2.15.x"]]; then
   # get version from repo
   OLD_VERSION="$(scripts/get-latest-version.sh $1 $2)"
