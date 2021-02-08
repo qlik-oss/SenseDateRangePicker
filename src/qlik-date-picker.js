@@ -18,14 +18,8 @@ define(["qlik", "jquery", "./lib/moment.min", "./calendar-settings", "./lib/enco
             }
             return moment.utc(createDate(str), 'YYYYMMDD');
         }
-        function isQlikCloud(){
-            const qlikCloudRegEx = /\.(qlik-stage|qlikcloud)\.com/;
-            const matcher = window.location.hostname.match(qlikCloudRegEx) || [];
-            return matcher.length;
-        }
         function createRanges(props) {
             var ranges = {};
-            if( !isQlikCloud() ) {
                 var numberOf = props.numberOf,
                 includeCurrent = props.previousOrLast;
                 if(props.this == undefined) {
@@ -46,15 +40,10 @@ define(["qlik", "jquery", "./lib/moment.min", "./calendar-settings", "./lib/enco
                 if(includeCurrent == undefined) {
                     includeCurrent = false;
                 }
-            }
             ranges[props.today] = [moment().startOf('day'), moment().startOf('day')];
             ranges[props.yesterday] = [moment().subtract(1, 'days').startOf('day'), moment().subtract(1, 'days').startOf('day')];
             ranges[props.lastXDays.replace("$", "7")] = [moment().subtract(6, 'days').startOf('day'), moment().startOf('day')];
             ranges[props.lastXDays.replace("$", "30")] = [moment().subtract(29, 'days').startOf('day'), moment().startOf('day')];
-            if( isQlikCloud() ) {
-                ranges[props.thisMonth] = [moment().startOf('month').startOf('day'), moment().endOf('month').startOf('day')];
-                ranges[props.lastMonth] = [moment().subtract(1, 'month').startOf('month').startOf('day'), moment().subtract(1, 'month').endOf('month').startOf('day')];
-            } else {
                 if (props.this === "d") {
                     ranges[props.thisLabel] = [moment().startOf('day'), moment().startOf('day')];
                 } else if (props.this === "m") {
@@ -84,8 +73,7 @@ define(["qlik", "jquery", "./lib/moment.min", "./calendar-settings", "./lib/enco
                     } else if (props.last === "y") {
                         ranges[props.lastLabel] = [moment().subtract(numberOf -1,'years').startOf('year').startOf('day'), moment().endOf('year').startOf('day')];
                     }
-                }   
-            }       
+                }
             return ranges;
         }
         function createDateStates(pages) {
