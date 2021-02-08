@@ -388,16 +388,6 @@
   
           this.container.addClass('opens' + this.opens);
   
-          if (this.isQlikCloud()) {
-          //swap the position of the predefined ranges if opens right
-            if (typeof options.ranges !== 'undefined' && this.opens == 'right') {
-                var ranges = this.container.find('.ranges');
-                var html = ranges.clone();
-                ranges.remove();
-                this.container.find('.calendar.dpleft').parent().prepend(html);
-            }
-          }
-  
           //apply CSS classes and labels to buttons
           this.container.find('.applyBtn, .cancelBtn').addClass(this.buttonClasses);
           if (this.applyClass.length)
@@ -603,12 +593,6 @@
   
               // looks like we don't do anything with active ranges
               this.showCalendars();
-          },
-
-          isQlikCloud: function() {
-            const qlikCloudRegEx = /\.(qlik-stage|qlikcloud)\.com/;
-            const matcher = window.location.hostname.match(qlikCloudRegEx) || [];
-            return matcher.length;
           },
 
           renderCalendar: function(side) {
@@ -819,15 +803,9 @@
                       var cname = '', disabled = false;
                       for (var i = 0; i < classes.length; i++) {
                           cname += classes[i] + ' ';
-                          if ( this.isQlikCloud() ) {
-                            if ( ['disabled','nodata','empty'].indexOf(classes[i]) > -1) {
-                                disabled = true;
-                            }
-                          } else {
                             if ( ['disabled','empty'].indexOf(classes[i]) > -1) {
                                 disabled = true;
-                            }
-                          }    
+                            }    
                       }
                       if (!disabled)
                           cname += 'available';
@@ -1313,23 +1291,15 @@
                   }
                   this.setEndDate(date.clone());
                   if (this.autoApply) {
-                    if (this.isQlikCloud()) {
-                        this.clickApply()
-                    } else {
                         this.clickApplyNoData(e);
-                    }
                   }
               }
   
               if (this.singleDatePicker) {
                   this.setEndDate(this.startDate);
                   if (!this.timePicker) {
-                    if (this.isQlikCloud()) {
-                      this.clickApply()
-                    } else {
                       this.clickApplyNoData(e);
                     }
-                  }
                 }
   
               this.updateView();  
