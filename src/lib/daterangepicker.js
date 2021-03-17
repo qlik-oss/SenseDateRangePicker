@@ -491,7 +491,7 @@
               if (this.endDate.isBefore(this.startDate))
                   this.endDate = this.startDate.clone();
   
-              if (this.maxDate.endOf('day') && this.endDate.isAfter(this.maxDate))
+              if (this.maxDate && this.maxDate.endOf('day') && this.endDate.isAfter(this.maxDate))
                   this.endDate = this.maxDate;
   
               if (this.dateLimit && this.startDate.clone().add(this.dateLimit).isBefore(this.endDate))
