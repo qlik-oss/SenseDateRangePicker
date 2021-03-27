@@ -15,8 +15,8 @@
 (function(root, factory) {
 
     if (typeof define === 'function' && define.amd ) {  
-      define(['./moment.min', 'jquery', 'exports'], function(momentjs, $, exports) {   
-        root.qlikdaterangepicker = factory(root, exports, momentjs, $);
+      define(['./moment.min', 'jquery', 'exports', './encoder'], function(momentjs, $, exports, encoder) {   
+        root.qlikdaterangepicker = factory(root, exports, momentjs, $, encoder);
       });
   
     } else if (typeof exports !== 'undefined') {
@@ -31,14 +31,14 @@
             }
         }
   
-      factory(root, exports, momentjs, jQuery);
+      factory(root, exports, momentjs, jQuery, encoder);
   
     // Finally, as a browser global.
     } else { 
-      root.qlikdaterangepicker = factory(root, {}, root.moment || moment, (root.jQuery || root.Zepto || root.ender || root.$));
+      root.qlikdaterangepicker = factory(root, {}, root.moment || moment, (root.jQuery || root.Zepto || root.ender || root.$), root.encoder || encoder);
     }
   
-  }(this || {}, function(root, qlikdaterangepicker, moment, $) { // 'this' doesn't exist on a server
+  }(this || {}, function(root, qlikdaterangepicker, moment, $, encoder) { // 'this' doesn't exist on a server
   
       var DateRangePicker = function(element, options, cb) {
   
@@ -335,8 +335,8 @@
                   var disabled = (this.minDate && end.isBefore(this.minDate)) || (maxDate && start.isAfter(maxDate));
 
                   var elem = document.createElement('textarea');
-                  elem.innerHTML = range;
-                  var rangeHtml = elem.value;
+                  elem.innerHTML = encoder.encodeForHTML(range);
+                  var rangeHtml = encoder.encodeForHTML(elem.value);
   
                   this.ranges[rangeHtml] = [start, end, disabled];
               }
@@ -346,7 +346,7 @@
                   list += this.ranges[range][2] ? '<li class="disabled">' :'<li>';
                   list += range + '</li>';
               }
-              list += '<li>' + this.locale.customRangeLabel + '</li>';
+              list += '<li>' + encoder.encodeForHTML(this.locale.customRangeLabel) + '</li>';
               list += '</ul>';
               this.container.find('.ranges').prepend(list);
           }
