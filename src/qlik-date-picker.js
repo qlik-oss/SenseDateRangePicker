@@ -14,7 +14,7 @@ define(["qlik", "jquery", "./lib/moment.min", "./calendar-settings", "./lib/enco
         }
         function createMoment(str, format) {
             if (isNaN(str)) {
-                return moment.utc(str, format);
+                return moment(str + " UTC", format).utc();
             }
             return moment.utc(createDate(str), 'YYYYMMDD');
         }
