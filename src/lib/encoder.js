@@ -23,6 +23,14 @@ define([], function() {
       encoded = encodingDiv.innerHTML;
       encodingDiv.removeChild(textNode);
       return encoded;
+    },
+    htmlEscape: function(input) {
+      return input
+        .replace(/&/g, '&')
+        .replace(/'/g, "'")
+        .replace(/"/g, '"')
+        .replace(/>/g, '>')   
+        .replace(/</g, '<');    
     }
   };
   return encoder;
