@@ -26,11 +26,12 @@ define([], function() {
     },
     htmlEscape: function(input) {
       return input
-        .replace(/&/g, '&')
-        .replace(/'/g, "'")
-        .replace(/"/g, '"')
-        .replace(/>/g, '>')   
-        .replace(/</g, '<');    
+      .replace(/&/g, '&amp;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#x27;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/\//g, '&#x2F;')   
     }
   };
   return encoder;
