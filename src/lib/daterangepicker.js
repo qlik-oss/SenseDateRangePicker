@@ -101,10 +101,11 @@
           //allow setting options with data attributes
           //data-api options will be overwritten with custom javascript options
           options = $.extend(this.element.data(), options);
+          options.id = encoder.htmlEscape(options.id);
   
           //html template for the picker UI
           if (typeof options.template !== 'string')
-              options.template = '<div id= "dropDown_' + options.id + '" div class="qlik-daterangepicker dropdown-menu" style="display:none">' +
+              options.template = '<div id= "dropDown_' + encoder.encodeForHTML(options.id) + '" div class="qlik-daterangepicker dropdown-menu" style="display:none">' +
                   '<div class="calendar dpleft">' +
                       '<div class="qlik-daterangepicker_input">' +
                         '<input class="input-mini" type="text" name="qlik-daterangepicker_start" value="" />' +
