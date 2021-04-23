@@ -59,15 +59,15 @@ define(["qlik", "jquery", "./lib/moment.min", "./calendar-settings", "./lib/enco
                     startRange = createMoment(dateStates.rangeStart).format(DateFormat);
                     endRange = (dateStates.rangeEnd && (dateStates.rangeEnd !== dateStates.rangeStart)) ? createMoment(dateStates.rangeEnd).format(DateFormat) : null;
                 if( !sortAscending ) {
-                    html += startRange;
+                    html += encoder.encodeForHTML(startRange);
                     if (endRange !== null) {
-                        html += props.separator + endRange;
+                        html += encoder.encodeForHTML(props.separator) + encoder.encodeForHTML(endRange);
                     }
                 } else {
                     if( endRange!== null) {
-                        html += endRange + props.separator + startRange;
+                        html += encoder.encodeForHTML(endRange) + encoder.encodeForHTML(props.separator) + encoder.encodeForHTML(startRange);
                     } else {
-                        html += startRange;
+                        html += encoder.encodeForHTML(startRange);
                     }
                     }
                 } else {
