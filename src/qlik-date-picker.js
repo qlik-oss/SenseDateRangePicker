@@ -49,16 +49,18 @@ define(["qlik", "jquery", "./lib/moment.min", "./calendar-settings", "css!./lib/
             return dateStates;
         }
         function createHtml(dateStates, DateFormat, props) {
-            var html = '<div>'
+            var html = '<div>', startRange, endRange;
             html += '<div class="bootstrap_inside pull-right show-range" >';
             html += '   <i class="lui-icon lui-icon--calendar"></i>&nbsp;<span>';
             if (dateStates.rangeStart) {
-                html += createMoment(dateStates.rangeStart).format(DateFormat);
-                if (dateStates.rangeEnd && (dateStates.rangeEnd !== dateStates.rangeStart)) {
-                    html += props.separator + createMoment(dateStates.rangeEnd).format(DateFormat);
+                startRange = createMoment(dateStates.rangeStart).format(DateFormat);
+                endRange = (dateStates.rangeEnd && (dateStates.rangeEnd !== dateStates.rangeStart)) ? createMoment(dateStates.rangeEnd).format(DateFormat) : null;
+                html += encoder.encodeForHTML(startRange);
+                if (endRange !== null) {
+                    html += encoder.encodeForHTML(props.separator) + encoder.encodeForHTML(endRange);
                 }
             } else {
-                html += props.defaultText;
+                html += encoder.encodeForHTML(props.defaultText);
             }
             html += '</span> <b class="lui-button__caret lui-caret"></b>';
             html += '</div>';
