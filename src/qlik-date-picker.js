@@ -210,9 +210,9 @@ define(["qlik", "jquery", "./lib/moment.min", "./calendar-settings", "./lib/enco
                 var minDate, maxDate, startDate, endDate;
                 moment.locale(layout.props.locale);
                 minDate = createMoment(layout.props.minDate, qlikDateFormat);
-                maxDate = createMoment(layout.props.maxDate, qlikDateFormat).endOf("day");
+                maxDate = createMoment(layout.props.maxDate, qlikDateFormat);
                 startDate = createMoment(layout.props.startDate, qlikDateFormat);
-                endDate = createMoment(layout.props.endDate, qlikDateFormat).endOf("day");
+                endDate = createMoment(layout.props.endDate, qlikDateFormat);
                 $('#dropDown_' + layout.qInfo.qId).remove();
 
                 $element.html(createHtml(this.dateStates, outDateFormat, layout.props, sortAscending));
