@@ -347,7 +347,6 @@
                   list += this.ranges[range][2] ? '<li class="disabled">' :'<li>';
                   list += range + '</li>';
               }
-              list += '<li>' + encoder.encodeForHTML(this.locale.customRangeLabel) + '</li>';
               list += '</ul>';
               this.container.find('.ranges').prepend(list);
           }
