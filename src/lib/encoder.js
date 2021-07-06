@@ -24,14 +24,20 @@ define([], function() {
       encodingDiv.removeChild(textNode);
       return encoded;
     },
-    htmlEscape: function(input) {
-      return input
-      .replace(/&/g, '&amp;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#x27;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/\//g, '&#x2F;')   
+    encodeAttr: (input) => {
+      const immune = ['#', ' ', '(', ')'];
+      let encoded = '';
+      for (i = 0; i < input.length; i++) {
+        ch = input.charAt(i);
+        cc = input.charCodeAt(i);
+        if (!ch.match(/[a-zA-Z0-9]/) && immune.indexOf(ch) < 0) {
+          hex = cc.toString(16);
+          encoded += `&#x${hex};`;
+        } else {
+          encoded += ch;
+        }
+      }
+      return encoded;
     }
   };
   return encoder;

@@ -101,7 +101,7 @@
           //data-api options will be overwritten with custom javascript options
           options = $.extend(this.element.data(), options);
           error_nodata = "No data available for the range selected. Please select again."
-          options.id = encoder.htmlEscape(options.id);
+          options.id = encoder.encodeAttr(options.id);
   
           //html template for the picker UI
           if (typeof options.template !== 'string')
