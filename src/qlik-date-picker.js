@@ -200,8 +200,9 @@ define(["qlik", "jquery", "./lib/moment.min", "./calendar-settings", "./lib/enco
 
                 // old sort order was ascending, check to see if the object was created before the change
                 // to calcuate the range start and end dates in the createDateStates
-                var sortAscending = layout && layout.qListObject && layout.qListObject.qDimensionInfo &&
-                     layout.qListObject.qDimensionInfo.qSortIndicator == "A";
+                var sortAscending = (layout && layout.qListObject && layout.qListObject.qSortCriterias &&
+                    layout.qListObject.qSortCriterias.qSortByNumeric == "1") || (layout && layout.qListObject && layout.qListObject.qDimensionInfo &&
+                     layout.qListObject.qDimensionInfo.qSortIndicator == "A");
 
                 function canInteract() {
                     return interactionState === 1;
@@ -211,7 +212,6 @@ define(["qlik", "jquery", "./lib/moment.min", "./calendar-settings", "./lib/enco
                 if (!self.app) {
                     self.app = qlik.currApp(this);
                 }
-
                 var qlikDateFormat = layout.qListObject.qDimensionInfo.qNumFormat.qFmt
                     || self.app.model.layout.qLocaleInfo.qDateFmt;
                 var outDateFormat = layout.props.format || qlikDateFormat;
