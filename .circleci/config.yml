@@ -35,22 +35,6 @@ jobs:
       - store_artifacts:
           path: dist
           destination: dist
-  blackduck:
-    docker:
-    - image: circleci/node:stretch-browsers
-    steps:
-      - checkout
-      - run:
-          name: Install dependencies
-          command: yarn install
-      - run:
-          name: BlackDuck scan
-          command: curl -s https://detect.synopsys.com/detect.sh | bash -s -- \
-            --blackduck.url="https://qliktech.blackducksoftware.com" \
-            --blackduck.trust.cert=true \
-            --blackduck.username="svc-blackduck" \
-            --blackduck.password=${svc_blackduck} \
-            --detect.project.name="SenseDateRangePicker"
   deploy:
     <<: *defaults
     steps:
@@ -79,14 +63,9 @@ workflows:
           filters: # Required since jobs that requires this uses tag-filter
             tags:
               only: /.*/
-      - blackduck:
-          filters: # Required since jobs that requires this uses tag-filter
-            tags:
-              only: /.*/
       - deploy:
           requires:
             - build
-            - blackduck
           filters:
             tags:
               only:
