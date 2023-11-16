@@ -1,5 +1,5 @@
 {
-    "name": "qlik-date-picker",
+    "name": "@qlik/qlik-date-picker",
     "version": "2.39.0",
     "description": "A calendar object that allows a user to make selections in a date field.",
     "private": true,
