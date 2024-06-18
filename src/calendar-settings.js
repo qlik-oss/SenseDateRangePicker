@@ -417,6 +417,17 @@ define(["qlik"], function (qlik) {
 					}
 				}
 			},
+            presentation: {
+                type: "items",
+                grouped: false,
+                translation: "properties.presentation",
+                items: {
+                    stylingPanel: {
+                        uses: 'stylingPanel',
+                        chartTitle: 'Date picker'
+                    }
+                }
+            }
 		}
 	};
     return {
