@@ -997,42 +997,40 @@
               this.container[this.drops == 'up' ? 'addClass' : 'removeClass']('dropup');
   
               if (this.opens == 'left') {
-                  this.container.css({
-                      top: containerTop,
-                      right: parentRightEdge - this.element.offset().left - this.element.outerWidth(),
-                      left: 'auto'
-                  });
-                  if (this.container.offset().left < 0) {
-                      this.container.css({
-                          right: 'auto',
-                          left: 9
-                      });
-                  }
-              } else if (this.opens == 'center') {
-                  this.container.css({
-                      top: containerTop,
-                      left: this.element.offset().left - parentOffset.left + this.element.outerWidth() / 2
-                              - this.container.outerWidth() / 2,
-                      right: 'auto'
-                  });
-                  if (this.container.offset().left < 0) {
-                      this.container.css({
-                          right: 'auto',
-                          left: 9
-                      });
-                  }
+                let rightPosition = parentRightEdge - this.element.offset().left - this.element.outerWidth();
+                if ((parentRightEdge - rightPosition) > $(window).width()) { // dropdown outside right edge
+                  let spaceToMove = ((parentRightEdge - rightPosition) - $(window).width())
+                  rightPosition = rightPosition + spaceToMove;
+                } else if (parentRightEdge - rightPosition - this.container.outerWidth() < 0) { // dropdown outside left edge
+                  let spaceToMove = parentRightEdge - rightPosition - this.container.outerWidth()
+                  rightPosition = rightPosition + spaceToMove;
+                }
+                this.container.css({
+                  top: containerTop,
+                  right: rightPosition,
+                  left: 'auto'
+                });
               } else {
-                  this.container.css({
-                      top: containerTop,
-                      left: this.element.offset().left - parentOffset.left,
-                      right: 'auto'
-                  });
-                  if (this.container.offset().left + this.container.outerWidth() > $(window).width()) {
-                      this.container.css({
-                          left: 'auto',
-                          right: 0
-                      });
-                  }
+                let leftPosition;
+                if (this.opens == 'center') {
+                  leftPosition = this.element.offset().left - parentOffset.left + this.element.outerWidth() / 2
+                    - this.container.outerWidth() / 2;
+                } else { // opens == 'right'
+                  leftPosition = this.element.offset().left - parentOffset.left;
+                }
+                if (leftPosition + parentOffset.left < 0) { // dropdown outside left edge
+                  let spaceToMove = 0 - (leftPosition + parentOffset.left);
+                  leftPosition = leftPosition + spaceToMove;
+                }
+                if (parentOffset.left + leftPosition + this.container.outerWidth() > $(window).width()) { // dropdown outside right edge
+                  let spaceToMove = $(window).width() - (parentOffset.left + leftPosition + this.container.outerWidth());
+                  leftPosition = leftPosition + spaceToMove;
+                }
+                this.container.css({
+                  top: containerTop,
+                  left: leftPosition,
+                  right: 'auto'
+                });
               }
           },
   

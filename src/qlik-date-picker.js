@@ -139,14 +139,18 @@ define(["qlik", "jquery", "./lib/moment.min", "./calendar-settings", "./lib/enco
             return html;
         }
         function getPosition( element ) {
-            if (element.offset().left < 600) {
-                return "right";
+            const leftOffset = element.offset().left;
+            const rightOffset = $(window).width() - leftOffset - element.width();
+            if (leftOffset < 600 && rightOffset < 600) {
+                return "center";
             }
-            else if (element.offset().right < 600) {
+            else if (leftOffset < 600) {
+                return "right";
+            } else if (rightOffset < 600) {
                 return "left";
             }
             else {
-                "left";
+                return "left";
             }
         }
         function getTopPosition( element ) {
