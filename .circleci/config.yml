@@ -5,7 +5,7 @@ defaults: &defaults
   docker:
     - image: cimg/node:20.1.0
   environment:
-    GITHUB_ORG: "qlik-oss"
+    GITHUB_ORG: "qlik-trial"
     GITHUB_REPO: "SenseDateRangePicker"
     PACKAGE_NAME: "qlik-date-picker"
 
