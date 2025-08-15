@@ -198,11 +198,14 @@ define(["qlik", "jquery", "./lib/moment.min", "./calendar-settings", "./lib/enco
                 var interactionState = this._interactionState;
                 var noSelections = this.options.noSelections === true;
 
-                // old sort order was ascending, check to see if the object was created before the change
-                // to calcuate the range start and end dates in the createDateStates
-                var sortAscending = (layout && layout.qListObject && layout.qListObject.qSortCriterias &&
-                    layout.qListObject.qSortCriterias.qSortByNumeric == "1") || (layout && layout.qListObject && layout.qListObject.qDimensionInfo &&
-                     layout.qListObject.qDimensionInfo.qSortIndicator == "A");
+                // layout.qListObject.qSortCriterias.qSortByNumeric which is old and not valid anymore. Valid sort is layout.qListObject.qDimensionInfo.qSortIndicator
+                function isSortAscending() {
+                    if (layout && layout.qListObject && layout.qListObject.qDimensionInfo && layout.qListObject.qDimensionInfo.qSortIndicator == "A") return true;
+                    if (layout && layout.qListObject && layout.qListObject.qDimensionInfo && layout.qListObject.qDimensionInfo.qSortIndicator == "D") return false;
+                    return (layout && layout.qListObject && layout.qListObject.qSortCriterias && layout.qListObject.qSortCriterias.qSortByNumeric == "1");
+                }
+
+                var sortAscending = isSortAscending();
 
                 function canInteract() {
                     return interactionState === 1;
